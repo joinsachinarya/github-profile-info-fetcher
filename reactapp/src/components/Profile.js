@@ -14,10 +14,8 @@ const Profile = ({ uprofile }) => {
     setError('');
     try {
       const headers = { 'user-agent': 'node.js' };
-      const data = await axios.get(
-        `https://api.github.com/users/${uprofile.login}/repos?sort=created:asc`,
-        headers
-      );
+
+      const data = await axios.get(`https://api.github.com/users/${uprofile.login}/repos?sort=created:asc`, headers);
       if (data.status === 200) {
         setRepos(data.data);
         if (data.data.length === 0) {
@@ -58,23 +56,24 @@ const Profile = ({ uprofile }) => {
               <h5 className='card-title'>{uprofile.name}</h5>
               <p className='card-text'>{uprofile.bio}</p>
 
-              <ul>
-                <li className='badge bg-primary m-1'>
-                  <a
-                    href={uprofile.followers_url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    Followers: {uprofile.followers || 0}
-                  </a>
-                </li>
-                <li className='badge bg-dark m-1'>
-                  Following: {uprofile.following || 0}
-                </li>
-              </ul>
-              <button className='btn btn-outline-primary' onClick={fetchRepo}>
-                Get Repositories
-              </button>
+              <li className='badge bg-primary m-1'>
+                <a
+                  href={uprofile.followers_url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  Followers: {uprofile.followers || 0}
+                </a>
+              </li>
+              <li className='badge bg-dark m-1'>
+                Following: {uprofile.following || 0}
+              </li>
+              <div className='mt-4'>
+                <button className='btn btn-outline-primary' onClick={fetchRepo}>
+                  Get Repositories
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
